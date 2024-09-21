@@ -1,4 +1,6 @@
-package com.krakedv;
+package com.krakedv.Test;
+
+import com.krakedv.Carro;
 
 public class TestCarro {
 
