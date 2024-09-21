@@ -1,4 +1,4 @@
-package com.Reto9;
+package Reto9M2;
 
 public class CalculadoraJava {
 	public int suma(int a, int b) {
