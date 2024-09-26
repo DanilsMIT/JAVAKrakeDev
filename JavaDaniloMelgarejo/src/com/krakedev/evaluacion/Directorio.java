@@ -24,6 +24,7 @@ public class Directorio {
 		}
 		ArrayList<Contacto> cdp=new ArrayList<Contacto>();
 		contactos=cdp;
+		
 	}
 
 	public int contarFijos() {
