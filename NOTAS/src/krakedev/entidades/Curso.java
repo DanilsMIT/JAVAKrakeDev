@@ -10,29 +10,30 @@ public class Curso {
 		Estudiante e;
 		for (int es = 0; es < Estudiantes.size(); es++) {
 			e = Estudiantes.get(es);
-			if (e.getCedula()==student.getCedula() ) {
+			if (e.getCedula() == student.getCedula()) {
 				r = true;
-				System.out.println("Un estudiante ya registrado con tal cedula");
-				break;
-				
 			} else {
 				r = false;
 			}
 		}
-
 		return r;
 
 	}
 
 	public void matricularEstudiante(Estudiante student) {
-		if (Estudiantes.size()==0) {
+		if (Estudiantes.size() == 0) {
 			Estudiantes.add(student);
 		}
 
-		if (Estudiantes.size()>0) {
+		if (Estudiantes.size() > 0) {
 			boolean cnE = buscarEstudiantePorCedula(student);
 			if (cnE == false) {
 				Estudiantes.add(student);
+			}else {
+				if (cnE = true && Estudiantes.size() >1) {
+					System.out.println("Un estudiante ya registrado con tal cedula");
+				}
+
 			}
 		}
 	}
@@ -54,7 +55,7 @@ public class Curso {
 
 	public void mostrar() {
 		System.out.println("====================");
-		System.out.println("Curso");		
+		System.out.println("Curso");
 		Estudiante e;
 		for (int n = 0; n < Estudiantes.size(); n++) {
 			e = Estudiantes.get(n);
