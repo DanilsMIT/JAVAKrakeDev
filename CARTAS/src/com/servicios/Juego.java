@@ -17,21 +17,16 @@ public class Juego {
 		int winnerI = 0;
 		for (int u = 0; u < puntajes.size(); u++) {
 			p = puntajes.get(u);
-			
+
 			if (pw < p.getPuntaje()) {
+				pw = p.getPuntaje();
 				winnerI = u;
 			}
-			
-			if(u>0&&pw==p.getPuntaje()) {
-				return "Hubo empate";
-			}
 		}
-		winnerI=winnerI+1;
+		winnerI = winnerI + 1;
 		winner = Integer.toString(winnerI);
 		return winner;
 	}
-
-
 
 	public int devolverTotal(int idPlayer) {
 		int PuntajePlayer = 0;
