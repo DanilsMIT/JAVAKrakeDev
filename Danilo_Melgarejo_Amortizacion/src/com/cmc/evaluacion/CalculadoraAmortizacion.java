@@ -15,10 +15,10 @@ public class CalculadoraAmortizacion {
 	}
 
 	public void calcularValoresCuota(double i, Cuota cActual, Cuota cSiguiente) {
-		double interesDecimal = Cuota.utilitario((i * 0.01) / 12);
-		double AbonoAlInteres = Cuota.utilitario(cActual.getCapitalInicio() * interesDecimal);
-		double AbonoAlCapital = Cuota.utilitario(cActual.getCouta() - AbonoAlInteres);
-		double saldoPendiente = Cuota.utilitario(cActual.getCapitalInicio() - AbonoAlCapital);
+		double interesDecimal = (i/100) / 12;
+		double AbonoAlInteres = cActual.getCapitalInicio() * interesDecimal;
+		double AbonoAlCapital = cActual.getCouta() - AbonoAlInteres;
+		double saldoPendiente = cActual.getCapitalInicio() - AbonoAlCapital;
 
 		cActual.setAbonoAlInteres(AbonoAlInteres);
 		cActual.setAbonoAlCapital(AbonoAlCapital);
@@ -28,19 +28,18 @@ public class CalculadoraAmortizacion {
 }
 	
 	public void calcularValoresCuotaF(double i, Cuota cActual) {
-		double interesDecimal = Cuota.utilitario((i * 0.01) / 12);
-		double AbonoAlInteres = Cuota.utilitario(cActual.getCapitalInicio() * interesDecimal);
-		double AbonoAlCapital = Cuota.utilitario(cActual.getCouta() - AbonoAlInteres);
-		double saldoPendiente = Cuota.utilitario(cActual.getCapitalInicio() - AbonoAlCapital);
+		double interesDecimal = (i/100) / 12;
+		double AbonoAlInteres = cActual.getCapitalInicio() * interesDecimal;
+		double AbonoAlCapital = cActual.getCouta() - AbonoAlInteres;
+		double saldoPendiente = cActual.getCapitalInicio() - AbonoAlCapital;
 
 		cActual.setAbonoAlInteres(AbonoAlInteres);
 		cActual.setAbonoAlCapital(AbonoAlCapital);
 		cActual.setNewCapitalSaldo(saldoPendiente);
 		
-		if (cActual.getNewCapitalSaldo()<1) {
-			cActual.setCouta(cActual.getCouta() + cActual.getNewCapitalSaldo());
-			cActual.setNewCapitalSaldo(0);
-		}
+		
+		cActual.setCouta(cActual.getCouta() + cActual.getNewCapitalSaldo());
+		cActual.setNewCapitalSaldo(0);
 
 	}
 
@@ -51,7 +50,7 @@ public class CalculadoraAmortizacion {
 		for (int c = 0; c < prm.getCuotas().size(); c++) {
 			C = new Cuota(c + 1);
 			C.setCouta(cuotaMes);
-			if (c == 0) {
+			if (c == 0 ) {
 				C.setCapitalInicio(prm.getMonto());
 			}
 			prm.getCuotas().set(c, C);
