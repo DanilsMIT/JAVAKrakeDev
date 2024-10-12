@@ -13,18 +13,17 @@ public class Cuota {
 	private double newCapitalSaldo;
 	
 	public static double utilitario(double d) {
-		DecimalFormat dr=new DecimalFormat("#.##");
-		String decimalR=dr.format(d);
-		double drc=Double.parseDouble(decimalR);
-		return drc;
+		String s=String.format("%.2f", d);
+		double dr=Double.parseDouble(s);
+		return dr;
 	}
 	
 	public void mostrarPrestamo() {
-		String c1=String.format("%.2f", couta);
-		String cI1=String.format("%.2f", capitalInicio);
-		String aI1=String.format("%.2f", abonoAlInteres);
-		String aC1=String.format("%.2f", abonoAlCapital);
-		String nCs1=String.format("%.2f", newCapitalSaldo);
+		double c1=utilitario(couta);
+		double cI1=utilitario(capitalInicio);
+		double aI1=utilitario(abonoAlInteres);
+		double aC1=utilitario(abonoAlCapital);
+		double nCs1=utilitario(newCapitalSaldo);
 		System.out.println(numero+" | "+c1+" | "+cI1+" | "+aI1+" | "+aC1+" | "+nCs1);
 	}
 	

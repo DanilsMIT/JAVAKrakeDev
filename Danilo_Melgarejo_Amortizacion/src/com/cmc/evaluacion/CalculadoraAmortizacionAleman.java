@@ -1,69 +1,62 @@
 package com.cmc.evaluacion;
 
-import java.util.ArrayList;
-
-public class CalculadoraAmortizacion {
-	
+public class CalculadoraAmortizacionAleman {
 	public void interesTotalPagado(Prestamo p) {
 		double iT = 0;
 		Cuota c;
-		for(int d=0;d<p.getCuotas().size();d++) {
-			c=p.getCuotas().get(d);
-			iT=iT+c.getAbonoAlInteres();
+		for (int d = 0; d < p.getCuotas().size(); d++) {
+			c = p.getCuotas().get(d);
+			iT = iT + c.getAbonoAlInteres();
 		}
-		
-		System.out.println("Cantidad de Interes pagado: "+Cuota.utilitario(iT));
+
+		System.out.println("Cantidad de Interes pagado: " + Cuota.utilitario(iT));
 	}
-	
-	public double calcularCuota(Prestamo prestamo) {
+
+	public double calcularAmortizacion(Prestamo prestamo) {
 		double coutaMensual;
-		double interesMensual;
-		//
-		interesMensual = (prestamo.getInteres() /100)/12;
-		coutaMensual = (prestamo.getMonto() * interesMensual)
-				/ (1 - (Math.pow(1 + interesMensual, -prestamo.getPlazo())));
+
+		coutaMensual = prestamo.getMonto() / prestamo.getPlazo();
+
 		return coutaMensual;
 	}
 
 	public void calcularValoresCuota(double i, Cuota cActual, Cuota cSiguiente) {
-		//
-		double interesDecimal = (i/100)/12;
+		double interesDecimal = (i / 100) ;
 		double AbonoAlInteres = cActual.getCapitalInicio() * interesDecimal;
-		double AbonoAlCapital = cActual.getCouta() - AbonoAlInteres;
-		double saldoPendiente = cActual.getCapitalInicio() - AbonoAlCapital;
+		double AbonoACuota = AbonoAlInteres + cActual.getAbonoAlCapital();
+		double saldoPendiente = cActual.getCapitalInicio() - cActual.getAbonoAlCapital();
 
 		cActual.setAbonoAlInteres(AbonoAlInteres);
-		cActual.setAbonoAlCapital(AbonoAlCapital);
+		cActual.setCouta(AbonoACuota);
 		cActual.setNewCapitalSaldo(saldoPendiente);
 		cSiguiente.setCapitalInicio(saldoPendiente);
-		
-}
-	
-	public void calcularValoresCuotaF(double i, Cuota cActual) {
-		//
-		double interesDecimal = (i/100)/12;
-		double AbonoAlInteres = cActual.getCapitalInicio() * interesDecimal;
-		double AbonoAlCapital = cActual.getCouta() - AbonoAlInteres;
-		double saldoPendiente = cActual.getCapitalInicio() - AbonoAlCapital;
-
-		cActual.setAbonoAlInteres(AbonoAlInteres);
-		cActual.setAbonoAlCapital(AbonoAlCapital);
-		cActual.setNewCapitalSaldo(saldoPendiente);
-		
-		
-		cActual.setCouta(cActual.getCouta() + cActual.getNewCapitalSaldo());
-		cActual.setNewCapitalSaldo(0);
 
 	}
 
+	public void calcularValoresCuotaF(double i, Cuota cActual, Cuota cPasada) {
+		double interesDecimal = (i / 100);
+		double AbonoAlInteres = cActual.getCapitalInicio() * interesDecimal;
+		double AbonoACuota = AbonoAlInteres + cActual.getAbonoAlCapital();
+		double saldoPendiente = cActual.getCapitalInicio() - cActual.getAbonoAlCapital();
+
+		cActual.setAbonoAlInteres(AbonoAlInteres);
+		cActual.setCouta(AbonoACuota);
+		cActual.setNewCapitalSaldo(saldoPendiente);
+		
+		double abonoPasado=cActual.getNewCapitalSaldo()*-1;
+		double capitalPast=cPasada.getNewCapitalSaldo()+abonoPasado;
+		cPasada.setNewCapitalSaldo(capitalPast);
+		cActual.setNewCapitalSaldo(0);
+		
+	}
 
 	public void generarTabla(Prestamo prm) {
-		double cuotaMes =calcularCuota(prm);
+		double cuotaAmortizacion = calcularAmortizacion(prm);
 		Cuota C;
 		for (int c = 0; c < prm.getCuotas().size(); c++) {
 			C = new Cuota(c + 1);
-			C.setCouta(cuotaMes);
-			if (c == 0 ) {
+			C.setAbonoAlCapital(cuotaAmortizacion);
+			if (c == 0) {
 				C.setCapitalInicio(prm.getMonto());
 			}
 			prm.getCuotas().set(c, C);
@@ -71,8 +64,8 @@ public class CalculadoraAmortizacion {
 
 		Cuota CuL;
 		Cuota CuL2;
-		System.out.println("No" + " | " + "Cuota" + " | " + "CapitalInicial" + " | " + "interes" + " | " + "Amortizacion" + " | "
-				+ "Saldo Pendiente");
+		System.out.println("No" + " | " + "Cuota" + " | " + "CapitalInicial" + " | " + "interes" + " | "
+				+ "Amortizacion" + " | " + "Saldo Pendiente");
 		System.out.println("======================================================================");
 
 		for (int d = 0; d < prm.getCuotas().size() - 1; d++) {
@@ -82,7 +75,7 @@ public class CalculadoraAmortizacion {
 			calcularValoresCuota(prm.getInteres(), CuL, CuL2);
 
 			if (d == prm.getCuotas().size() - 2) {
-				calcularValoresCuotaF(prm.getInteres(), CuL2);
+				calcularValoresCuotaF(prm.getInteres(), CuL2, CuL);
 
 			}
 		}

@@ -6,12 +6,12 @@ import com.cmc.evaluacion.Prestamo;
 public class TestCalculadora {
 
 	public static void main(String[] args) {
-		///Monto - interes% - plazo/12
-		Prestamo prestamo=new Prestamo(300000,3,180);
+		///Monto - interes% - plazo en años
+		Prestamo prestamo=new Prestamo(70000,7,15*12);
+		//Calculadora seteada en: mensual
 		CalculadoraAmortizacion CA=new CalculadoraAmortizacion();
 		CA.generarTabla(prestamo);
-			
+		CA.interesTotalPagado(prestamo);
 		}
 	}
 	
-/// La ultima cuota subio un poco porque era lo que faltaba por pagar en saldo pendiente

@@ -21,7 +21,7 @@ public class Prestamo {
 		this.plazo = plazo;
 		
 		ArrayList<Cuota> CL= new ArrayList<Cuota>();
-		for(int i=1;i<=plazo;i++) {
+		for(int i=1;i<=this.plazo;i++) {
 			Cuota c=new Cuota(i);
 			CL.add(c);
 		}
