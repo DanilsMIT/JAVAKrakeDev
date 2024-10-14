@@ -6,7 +6,7 @@ public class TestEliminar {
 
 	public static void main(String[] args) {
 		try {
-			AdminPersonas.Eliminar("6990123734");
+			AdminPersonas.Eliminar("7890123456");
 		} catch (Exception e) {
 			System.out.println("Error en el Sistema: " +e.getMessage());
 		}

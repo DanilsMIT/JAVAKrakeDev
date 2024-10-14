@@ -20,6 +20,10 @@ public class Maestros {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	@Override
+	public String toString() {
+		return "Maestros [codigo=" + codigo + ", nombre=" + nombre + "]";
+	}
 	
-
+	
 }

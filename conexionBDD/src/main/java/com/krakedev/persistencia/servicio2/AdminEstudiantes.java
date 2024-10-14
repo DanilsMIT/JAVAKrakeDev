@@ -2,6 +2,7 @@ package com.krakedev.persistencia.servicio2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
@@ -9,10 +10,55 @@ import org.apache.logging.log4j.Logger;
 
 import com.krakedev.entidades.Persona;
 import com.krakedev.entidades2.Estudiantes;
+import com.krakedev.entidades2.Maestros;
 import com.krakedev.persistencia.utils.ConexionBDD;
 
 public class AdminEstudiantes {
 	private static final Logger LOGGER = LogManager.getLogger(AdminEstudiantes.class);
+	
+	public static Estudiantes buscarPorClavePrimaria(String clavePrimary) throws Exception {
+		Connection CONX = null;
+		PreparedStatement PS = null;
+		Estudiantes E= new Estudiantes();
+		
+		ResultSet RS=null;
+		try {
+			CONX = ConexionBDD.conexion();
+			PS=CONX.prepareStatement("Select * from students where CI = ? ");
+			PS.setString(1, clavePrimary);
+			
+			RS=PS.executeQuery();
+			if(RS.next()) {
+				E.setCI(RS.getString("ci"));
+				E.setNombre(RS.getString("nombre"));
+				E.setApellido(RS.getString("apellido"));
+				E.setEmail(RS.getString("email"));
+				E.setBirth_date(RS.getDate("birth_date"));
+				int code_teacher=RS.getInt("code_teacher");
+				Maestros m=new Maestros(code_teacher,"David/Alex");
+				E.setCode_teacher(m);
+			}
+			
+			
+		} catch (Exception e) {
+			LOGGER.error("Error al Consultar", e);
+			throw new Exception("Error al Consultar");
+		} finally {
+			// Conexion CLOSING
+			try {
+				CONX.close();
+				PS.close();
+				// Conexion CLOSED
+			} catch (SQLException e) {
+				LOGGER.error("Error al cerrar la conexion", e);
+				throw new Exception("Error al cerrar la conexion");
+				// Error al cerrar conexion
+			}
+		}
+		
+		return E;
+	}
+	
 	
 	public static void Eliminar(String cedulaP) throws Exception {
 		Connection CONX = null;

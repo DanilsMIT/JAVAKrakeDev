@@ -10,6 +10,7 @@ public class Estudiantes {
 	private Date birth_date;
 	private Maestros code_teacher;
 	
+	public Estudiantes() {}
 	public Estudiantes(String cI, String nombre, String apellido, String email, Maestros code_teacher) {
 		super();
 		CI = cI;
@@ -53,6 +54,11 @@ public class Estudiantes {
 	}
 	public void setCode_teacher(Maestros code_teacher) {
 		this.code_teacher = code_teacher;
+	}
+	@Override
+	public String toString() {
+		return "Estudiantes [CI=" + CI + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email
+				+ ", birth_date=" + birth_date + ", code_teacher=" + code_teacher + "]";
 	}
 	
 	
