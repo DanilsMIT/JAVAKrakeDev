@@ -7,7 +7,7 @@ public class TestCalculadora {
 
 	public static void main(String[] args) {
 		///Monto - interes% - plazo en años
-		Prestamo prestamo=new Prestamo(70000,7,15*12);
+		Prestamo prestamo=new Prestamo(75000,36,2);
 		//Calculadora seteada en: mensual
 		CalculadoraAmortizacion CA=new CalculadoraAmortizacion();
 		CA.generarTabla(prestamo);

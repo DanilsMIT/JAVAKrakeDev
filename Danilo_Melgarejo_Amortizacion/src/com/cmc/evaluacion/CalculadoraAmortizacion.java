@@ -19,7 +19,7 @@ public class CalculadoraAmortizacion {
 		double coutaMensual;
 		double interesMensual;
 		//
-		interesMensual = (prestamo.getInteres() /100)/12;
+		interesMensual = (prestamo.getInteres() /100)/6;
 		coutaMensual = (prestamo.getMonto() * interesMensual)
 				/ (1 - (Math.pow(1 + interesMensual, -prestamo.getPlazo())));
 		return coutaMensual;
@@ -27,7 +27,7 @@ public class CalculadoraAmortizacion {
 
 	public void calcularValoresCuota(double i, Cuota cActual, Cuota cSiguiente) {
 		//
-		double interesDecimal = (i/100)/12;
+		double interesDecimal = (i/100)/6;
 		double AbonoAlInteres = cActual.getCapitalInicio() * interesDecimal;
 		double AbonoAlCapital = cActual.getCouta() - AbonoAlInteres;
 		double saldoPendiente = cActual.getCapitalInicio() - AbonoAlCapital;
@@ -41,7 +41,7 @@ public class CalculadoraAmortizacion {
 	
 	public void calcularValoresCuotaF(double i, Cuota cActual) {
 		//
-		double interesDecimal = (i/100)/12;
+		double interesDecimal = (i/100)/6;
 		double AbonoAlInteres = cActual.getCapitalInicio() * interesDecimal;
 		double AbonoAlCapital = cActual.getCouta() - AbonoAlInteres;
 		double saldoPendiente = cActual.getCapitalInicio() - AbonoAlCapital;
