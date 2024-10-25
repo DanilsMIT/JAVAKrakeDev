@@ -12,6 +12,15 @@ public class productos {
 	public productos() {
 
 	}
+	
+	
+	
+	public productos(String idP) {
+		super();
+		this.idP = idP;
+	}
+
+
 
 	public productos(String idP, String nombre, BigDecimal precio_venta, BigDecimal precio_compra,
 			categoria idCategoria) {

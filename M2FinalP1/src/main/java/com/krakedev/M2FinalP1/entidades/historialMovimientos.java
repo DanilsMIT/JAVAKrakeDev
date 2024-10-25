@@ -1,26 +1,42 @@
 package com.krakedev.M2FinalP1.entidades;
 
-import java.util.Date;
+import com.krakedev.M2FinalP1.excepciones.KrakeDevException;
+import com.krakedev.M2FinalP1.persistencia.HistorialBDDProductos;
 
 public class historialMovimientos {
 	private int serialNoMovimiento;
 	private productos idProducto;
-	private Date fecha_movimiento;
+	private int cantidad;
+	private String fecha_movimiento;
+	
 	
 	public historialMovimientos() {
-		
+		super();
 	}
-	public historialMovimientos(int serialNoMovimiento, productos idProducto, Date fecha_movimiento) {
+	
+	
+	public historialMovimientos(String idProducto, int cantidad, String fecha_movimiento) {
+		super();
+		HistorialBDDProductos hb= new HistorialBDDProductos();
+		try {
+			this.idProducto = hb.consultarProductobyID(idProducto);
+		} catch (KrakeDevException e) {
+			e.printStackTrace();
+		}
+		this.cantidad = cantidad;
+		this.fecha_movimiento = fecha_movimiento;
+	}
+
+
+	public historialMovimientos(int serialNoMovimiento, productos idProducto, int cantidad, String fecha_movimiento) {
 		super();
 		this.serialNoMovimiento = serialNoMovimiento;
 		this.idProducto = idProducto;
+		this.cantidad = cantidad;
 		this.fecha_movimiento = fecha_movimiento;
 	}
-	@Override
-	public String toString() {
-		return "historialMovimientos [serialNoMovimiento=" + serialNoMovimiento + ", idProducto=" + idProducto
-				+ ", fecha_movimiento=" + fecha_movimiento + "]";
-	}
+
+
 	public int getSerialNoMovimiento() {
 		return serialNoMovimiento;
 	}
@@ -33,11 +49,23 @@ public class historialMovimientos {
 	public void setIdProducto(productos idProducto) {
 		this.idProducto = idProducto;
 	}
-	public Date getFecha_movimiento() {
+	public int getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+	public String getFecha_movimiento() {
 		return fecha_movimiento;
 	}
-	public void setFecha_movimiento(Date fecha_movimiento) {
+	public void setFecha_movimiento(String fecha_movimiento) {
 		this.fecha_movimiento = fecha_movimiento;
 	}
-	
+	@Override
+	public String toString() {
+		return "historialMovimientos [serialNoMovimiento=" + serialNoMovimiento + ", idProducto=" + idProducto
+				+ ", cantidad=" + cantidad + ", fecha_movimiento=" + fecha_movimiento + "]";
+	}
 }
+	
+	

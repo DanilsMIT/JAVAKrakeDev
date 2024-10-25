@@ -27,7 +27,7 @@ public class TestAdminPersona {
 			p1.setHora_nacimiento(HoraN);
 			p1.setCantidadAhorrada(new BigDecimal(1030.70));
 
-			AdminPersonas.Insertar(p1);
+			System.out.println(p1);
 		} catch (Exception e) {
 			System.out.println("Error en el Sistema: " +e.getMessage());
 		}

@@ -6,9 +6,9 @@ import java.util.Date;
 
 public class Convertidor {
 
-	private static final String FORMATO_FECHA = "yyyy/MM/dd hh:mm";
+	private static final String Fecha_Format = "yyyy/MM/dd HH:mm";
 	public static Date convertirFecha(String fechaStr) throws Exception {
-		SimpleDateFormat simplef = new SimpleDateFormat(FORMATO_FECHA);
+		SimpleDateFormat simplef = new SimpleDateFormat(Fecha_Format);
 		Date fechaDate = null;
 		try {
 			fechaDate = simplef.parse(fechaStr);
